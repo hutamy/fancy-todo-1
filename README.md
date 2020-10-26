@@ -25,7 +25,7 @@
     
     Return data from Todo list
     
-    -   **Code:**  201  **Content:**  `[{ id : 12 }] (array of objects)`
+    -   **Code:**  201  **Content:**  `[{title: "Groceries Shopping", description: "get some chicken", status: "incomplete", due_date: 2020-10-26}] (array of objects)`
         
 -   **Error Response:**
     
@@ -46,7 +46,7 @@
     
 -   **Success Response:**
     
-    -   **Code:**  200   **Content:**  `{ id : 12, name : "Michael Bloom" } (array of objects)`
+    -   **Code:**  200   **Content:**   `[{title: "Groceries Shopping", description: "get some chicken", status: "incomplete", due_date: 2020-10-26}] (array of objects)`
 -   **Error Response:**
     
     -   **Code:**  500  
@@ -72,7 +72,7 @@
     
 -   **Success Response:**
     
-    -   **Code:**  200   **Content:**  `{ id : 12, name : "Michael Bloom" } (array of objects)`
+    -   **Code:**  200   **Content:**   `[{title: "Groceries Shopping", description: "get some chicken", status: "incomplete", due_date: 2020-10-26}] (array of objects)`
     
 -   **Error Response:**
     
@@ -110,7 +110,7 @@
     
     Return data from Todo list
     
-    -   **Code:**  200  **Content:**  `{title: String, description: String,status: String, due_date: Date}`
+    -   **Code:**  200  **Content:**   `[{title: "Groceries Shopping", description: "get some chicken", status: "incomplete", due_date: 2020-10-26}]`
         
 -   **Error Response:**
     
@@ -144,7 +144,7 @@
     
     Return data from Todo list
     
-    -   **Code:**  200  **Content:**  `{title: String, description: String,status: String, due_date: Date}`
+    -   **Code:**  200  **Content:**   `[{title: "Groceries Shopping", description: "get some chicken", status: "incomplete", due_date: 2020-10-26}]`
         
 -   **Error Response:**
     
@@ -174,9 +174,10 @@
     
     Return data from Todo list
     
-    -   **Code:**  200  **Content:**  `{messsage: "todo success to delete"}`
+    -   **Code:**  200  **Content:**  `{messsage: "Todo success to delete"}`
         
 -   **Error Response:**
     
     -   **Code:**  404  **Content:**  `{ error : "Not Found" }`
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
+
