@@ -14,10 +14,6 @@ function errorHandler (err, req, res, next){
         status = 401
         msg = 'Wrong email/password'
     }
-    else if(err.name = 'JsonWebTokenError'){
-        status = 401
-        msg = 'Wrong email/password'
-    }
     res.status(status).json({msg})
 }
 
