@@ -5,17 +5,23 @@ function authorization (req, res, next){
     Todo.findByPk(id)
     .then(data => {
         if(!data) { 
-            throw { msg: 'Todo not found', status: 404}
+            let err = {
+                name: 'Not Found'
+            }
+            throw err
         }
         else if(data.UserId === req.loggedInUser.id){
             next()
         }
         else{
-            throw { msg: 'Not authorized', status: 401}
+            let err = {
+                name: 'Authentication failed'
+            }
+            throw next(err)
         }
     })
     .catch(err => {
-        res.status(500).json(err)
+        next(err)
     })
 }
 
