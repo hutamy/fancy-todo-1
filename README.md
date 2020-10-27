@@ -181,3 +181,49 @@
     -   **Code:**  404  **Content:**  `{ error : "Not Found" }`
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
 
+
+    ## **Register User**
+
+	Add new user
+
+-   **URL**
+    
+    /register
+
+-   **Method:**
+    
+     `POST`  
+    
+-   **Success Response:**
+    
+    Return data from Todo list
+    
+    -   **Code:**  201  **Content:**  `{id: 1, email: "test@mail.com"}`
+        
+-   **Error Response:**
+   
+    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
+
+
+    ## **Log In User**
+
+	Log in user
+
+-   **URL**
+    
+    /login
+
+-   **Method:**
+    
+     `POST`  
+    
+-   **Success Response:**
+    
+    Return data from Todo list
+    
+    -   **Code:**  201  **Content:**  `{access_token: "567hbnmu087"}`
+        
+-   **Error Response:**
+   
+    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
+
