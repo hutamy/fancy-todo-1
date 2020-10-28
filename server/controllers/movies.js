@@ -11,7 +11,7 @@ class Movie {
             }
         })
         .then(({data}) => {
-            console.log(data.results)
+            // console.log(data.results)
             res.status(200).json(data.results)
         })
         .catch (err => {

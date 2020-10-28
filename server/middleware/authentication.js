@@ -11,6 +11,7 @@ async function authentication (req, res, next){
         }
         else{
             const decoded = verifyToken(access_token)
+            // console.log(decoded)
             const user = await User.findOne({
                 where: {
                     email: decoded.email

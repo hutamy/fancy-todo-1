@@ -14,10 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
     due_date: {
       type: DataTypes.DATE,
-      validate: {
-        isAfter: new Date()
-      }
-    }
+      // validate: { kok jadi gabisa ya ada ginian kak
+      //   isAfter: new Date()
+      // }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Todo',
