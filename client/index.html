@@ -10,7 +10,7 @@
     crossorigin="anonymous">
     <title>Fancy Todo</title>
 </head>
-<body style="background-color: #dddab1;">
+<body style="background-color: #dddab1; background-image: url('https://www.clipartkey.com/mpngs/m/190-1903798_doodle-png-tumblr-star-and-planet-drawings.png')">
 
     <!-- landing page : login form -->
     <section id="landing"> 
@@ -19,9 +19,9 @@
             <small onclick="signUp()" class="form-text text-muted" style="margin-left: 50px;">Create an Account</small>
             <section>
                 <div style="position: absolute;
-                bottom: 120px;
+                bottom: 120px; 
                 right: 280px;
-                background-color: #F6F5F0;
+                background-color: #ceca96;
                 color: white;
                 padding-left: 25px;
                 padding-right: 25px;
@@ -38,7 +38,7 @@
                       <label for="password" class="text-dark">Password</label>
                       <input type="password" class="form-control" id="password" autocomplete="current-password">
                     </div>
-                    <button type="submit" class="btn btn-block" style="background-color: #aaa772">Login</button>
+                    <button type="submit" class="btn btn-block" style="background-color: #F6F5F0">Login</button>
                 </form>
                 <small class="form-text text-muted" style="line-height: 30px;">Sign in with your google account</small>
                 <div class="g-signin2" data-onsuccess="onSignIn" style="width: auto;"></div>
@@ -49,25 +49,25 @@
 
     <!-- Register account -->
     <section id="register"> 
-        <div style="background: #A79C6C ; border-radius: 8px; box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65); height: 500px; margin: 80px 250px; width:auto;"> 
+        <div style="background: #ceca96 ; border-radius: 8px; box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65); height: 500px; margin: 80px 250px; width:auto;"> 
             <div class="row justify-content-center mt-5">
                 <div style="margin-top: 45px; width: 600px;">
                     <form onsubmit="register(event)">
-                        <h3 class="text-light text-center">Create ToDo Account</h3><br>
+                        <h3 class="text-dark text-center">Create ToDo Account</h3>
                         <div class="form-group">
-                            <label for="full_name_register" class="text-light">Full Name</label>
+                            <label for="full_name_register" class="text-dark">Full Name</label>
                             <input type="text" class="form-control" id="full_name_register" autocomplete="name">
                         </div>
                         <div class="form-group">
-                            <label for="email_register" class="text-light">Email</label>
+                            <label for="email_register" class="text-dark">Email</label>
                             <input type="email" class="form-control" id="email_register" aria-describedby="emailHelp" autocomplete="email">
                         </div>
                         <div class="form-group">
-                            <label for="password_register" class="text-light">Password</label>
+                            <label for="password_register" class="text-dark">Password</label>
                             <input type="password" class="form-control" id="password_register" autocomplete="current-password">
                         </div>
-                        <small id="emailHelp" class="form-text text-light">We'll never share your email with anyone else.</small>
-                        <button type="submit" class="btn btn-primary" style="background-color: #DDDAB1; color: black; width: 600px">Submit</button>
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: 600px">Submit</button>
                     </form>
                 </div>
             </div>
@@ -77,8 +77,8 @@
 
     <!-- Navbar content idnya content_navbar-->
     <section id="content_navbar"> 
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #527766;">
-            <a class="navbar-brand text-light" href="#">Fancy ToDo</a>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ceca96;">
+            <a class="navbar-brand text-light font-weight-bold" href="#">Fancy ToDo</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -117,15 +117,15 @@
     <!-- todo by user ID -->
     <section class="container" id="my-task">
         <div class="row">
-            <div class="col-12" id="user-task">
+            <div class="col-12" id="user-task">width:auto;
             </div>
         </div>
     </section>
 
     <!-- Add todo -->
-    <form id="add" onsubmit="addTodo(event)">
-        <div class="row justify-content-center mt-5">
-            <div class="col-4">
+    <form id="add" onsubmit="addTodo(event)" style="opacity: 0.9; background: white ; border-radius: 8px; box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65); height: 520px; margin: 40px 400px;">
+        <div class="row justify-content-center mt-5" style="padding-top: 30px;">
+            <div style="width: 400px;">
                 <p class="font-weight-bolder text-center">Add ToDo</p>
                 <div class="form-group">
                     <label for="add_title">Title</label>
@@ -135,11 +135,12 @@
                     <label for="add_description">Description</label>
                     <input type="text" class="form-control" id="add_description" placeholder="Description">
                 </div>
+                <p>Status</p>
                 <select class="form-control" id="add_status" name="add_status">
                     <option for="add_status" disabled>--Select Status---</option>
                     <option for="add_status" value="complete">Complete</option>
                     <option for="add_status" value="incomplete">Incomplete</option>
-                </select>
+                </select><br>
                 <div class="form-group">
                     <label for="add_due_date">Due Date</label>
                     <input type="date" class="form-control" id="add_due_date" placeholder="Due Date">
@@ -151,9 +152,9 @@
 
 
     <!-- Edit ToDo -->
-    <form id="editForm" onsubmit="editTodo(event)">
-    <div class="row justify-content-center mt-5">
-        <div class="col-4" id="edit">
+    <form id="editForm" onsubmit="editTodo(event)" style="opacity: 0.9; background: white ; border-radius: 8px; box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65); height: 520px; margin: 40px 400px;">
+    <div class="row justify-content-center mt-5" style="padding-top: 30px;">
+        <div id="edit" style="width: 400px;">
             <p class="font-weight-bolder text-center">Edit ToDo</p>
             <div class="form-group">
                 <label for="edit_title">Title</label>
@@ -163,11 +164,12 @@
                 <label for="edit_description">Description</label>
                 <input type="text" class="form-control" id="edit_description">
             </div>
+            <p>Status</p>
             <select class="form-control" id="edit_status" name="edit_status">
                 <option for="edit_status" disabled>--Select Status---</option>
                 <option for="edit_status" value="complete">Complete</option>
                 <option for="edit_status" value="incomplete">Incomplete</option>
-            </select>
+            </select><br>
             <div class="form-group">
                 <label for="edit_due_date">Due Date</label>
                 <input type="date" class="form-control" id="edit_due_date">
@@ -185,7 +187,7 @@
           </div>
     </section>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="index.js"></script>

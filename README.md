@@ -32,9 +32,10 @@
     -   **Code:**  400  **Content:**  `{ error : "Validation Errors" }`
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
     
+
 ## **Show All Todos**
 
-    Show all todos
+    Show all todos from users
 
 -   **URL**
     
@@ -52,19 +53,15 @@
     -   **Code:**  500  
         **Content:**  `{ error : "Internal Server Error" }`
     
+
 ## **Show Todos by Id**
 
-    Show todo by id
+    Show todo by User id
 
 -   **URL**
     
-    /todos/:id
+    /todos/my-task
 
-- **URL Params**
-
-	**Required:**
-
-		`id=[integer]`
     
 -   **Method:**
     
@@ -79,13 +76,14 @@
     -   **Code:**  500  
         **Content:**  `{ error : "Internal Server Error" }`
     
+
 ## **Replace Todos**
 
 	Replace existing todos with new data
 
 -   **URL**
     
-    /todos/:id
+    /todos/edit/:id
 
 - **URL Params**
 
@@ -120,11 +118,11 @@
 
 ## **Update Todos**
 
-	Update existing todos with new data
+	Update existing todo's status with new data
 
 -   **URL**
     
-    /todos/:id
+    /todos/update/:id
 
 - **URL Params**
 
@@ -152,13 +150,14 @@
     -   **Code:**  404  **Content:**  `{ error : "Not Found" }`
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
 
+
 ## **Delete Todos**
 
 	Delete existing todo
 
 -   **URL**
     
-    /todos/:id
+    /todos/delete/:id
 
 - **URL Params**
 
@@ -190,6 +189,14 @@
     
     /register
 
+**Data Params**
+    
+    {
+    full_name: String,
+    email: String,
+    password: String
+    }
+
 -   **Method:**
     
      `POST`  
@@ -198,7 +205,7 @@
     
     Return data from Todo list
     
-    -   **Code:**  201  **Content:**  `{id: 1, email: "test@mail.com"}`
+    -   **Code:**  201  **Content:**  `{id: 1, email: "test@mail.com", full_name:"Amy"}`
         
 -   **Error Response:**
    
@@ -212,6 +219,13 @@
 -   **URL**
     
     /login
+
+**Data Params**
+    
+    {
+    email: String,
+    password: String
+    }
 
 -   **Method:**
     
@@ -227,3 +241,48 @@
    
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
 
+
+    ## **Log In Google**
+
+	Log in user from google account
+
+-   **URL**
+    
+    /googleLogin
+
+-   **Method:**
+    
+     `POST`  
+    
+-   **Success Response:**
+    
+    Return data from Todo list
+    
+    -   **Code:**  201  **Content:**  `{access_token: "567hbnmu087"}`
+        
+-   **Error Response:**
+   
+    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
+
+
+    ## **Movie Recommendation**
+
+	See popular movie from TMDB
+
+-   **URL**
+    
+    /popular-movies
+
+-   **Method:**
+    
+     `GET`  
+    
+-   **Success Response:**
+    
+    Return data popular movies from TMDB
+    
+    -   **Code:**  201  **Content:**  `[{title: "Mulan", poster_path: "img.jpg"}]`
+        
+-   **Error Response:**
+   
+    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
