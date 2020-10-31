@@ -1,8 +1,10 @@
 const { Todo } = require('../models/index')
 
 function authorization (req, res, next){
-    const id = +req.params.id
-    // console.log(req.loggedInUser.id)
+
+    console.log('authorized')
+    const id = req.params.id
+
     Todo.findByPk(id)
     .then(data => {
         if(!data) { 

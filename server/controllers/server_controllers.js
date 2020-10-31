@@ -1,9 +1,10 @@
-const {Todo} = require('../models/index')
+const {Todo, User} = require('../models/index')
+const dateValidation = require('../helpers/dateValidation')
 
 class Controller {
 
     static async addTodo (req, res, next) {
-
+        
         try {
             const payload = {
                 title: req.body.title,
@@ -12,8 +13,13 @@ class Controller {
                 due_date: req.body.due_date,
                 UserId: req.loggedInUser.id
             }
-            const todo = await Todo.create(payload)
-            res.status(201).json(todo)
+            if(dateValidation(payload.due_date) === true){
+                const todo = await Todo.create(payload)
+                res.status(201).json(todo)
+            }
+            else{
+                next(err)
+            }
         }
         catch(err){
             next(err)
@@ -21,7 +27,7 @@ class Controller {
     }
 
 
-    static async viewAll (req,res, next){
+    static async viewById (req,res, next){
 
         try {
             const todos = await Todo.findAll({
@@ -37,11 +43,11 @@ class Controller {
     }
 
 
-    static async viewById (req, res, next) {
+    static async viewAll (req, res, next) {
         
         try {
             const id = +req.params.id
-            const selectedTodo = await Todo.findByPk(id)
+            const selectedTodo = await Todo.findAll({include: User})
             res.status(200).json(selectedTodo)
         }
         catch(err) {
@@ -82,14 +88,19 @@ class Controller {
 
 
     static async updateTodo (req, res, next){
-
+        
         try {
             const id = +req.params.id
-            const payload = {
-                status: req.body.status
-            }
+            let status 
 
-            const updatedTodo = await Todo.update(payload, {
+            const findStatus = await Todo.findByPk(id)
+            if(findStatus.status == 'complete'){
+                status = 'incomplete'
+            }
+            else{
+                status = 'complete'
+            }
+            const updatedTodo = await Todo.update({status}, {
                 where: {
                     id: id
                 }
@@ -101,7 +112,8 @@ class Controller {
                 throw next(err)
             }
             else {
-                res.status(200).json(updatedTodo)
+                console.log('berhasil')
+                res.status(200).json('Sucess update status')
             }
         }
         catch(err) {
@@ -111,6 +123,7 @@ class Controller {
     
 
     static async deleteTodo(req, res, next) {
+       
         try {
             const id = +req.params.id
             const deletedTodo = await Todo.destroy({
@@ -118,7 +131,7 @@ class Controller {
                     id: id
                 }
             })
-            if(!updatedTodo){
+            if(!deletedTodo){
                 let err = {
                     name: 'Not Found'
                 }

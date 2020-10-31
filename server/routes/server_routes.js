@@ -3,17 +3,13 @@ const controller = require('../controllers/server_controllers')
 const authentication = require('../middleware/authentication')
 const authorization = require('../middleware/authorization')
 
-
 router.use(authentication)
 router.post('/', controller.addTodo)
 router.get('/', controller.viewAll)
-router.get('/:id', controller.viewById)
+router.get('/my-task', controller.viewById) //blm
 
-
-router.use(authorization)
-router.put('/:id', controller.replaceById)
-router.patch('/:id', controller.updateTodo)
-router.delete('/:id', controller.deleteTodo)
-
+router.put('/edit/:id', authorization, controller.replaceById)
+router.patch('/update/:id', authorization, controller.updateTodo) // blm
+router.delete('/delete/:id', authorization, controller.deleteTodo)
 
 module.exports = router

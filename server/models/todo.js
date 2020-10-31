@@ -12,12 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     status: DataTypes.STRING,
-    due_date: {
-      type: DataTypes.DATE,
-      // validate: { kok jadi gabisa ya ada ginian kak
-      //   isAfter: new Date()
-      // }
-    },
+    due_date: DataTypes.DATE,
     UserId: DataTypes.INTEGER
   }, {
     sequelize,

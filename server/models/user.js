@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         isEmail : {msg : 'Must be an email'},
-        unique : {msg: 'Email must be unique'}
       }
     },
     password: {
@@ -24,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [6]
       }
-    }
+    },
+    full_name: DataTypes.STRING
   }, {
     hooks: {
       beforeCreate (User) {
