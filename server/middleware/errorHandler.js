@@ -17,7 +17,7 @@ function errorHandler (err, req, res, next){
     }
     else if (err.name === 'Authentication failed'){
         status = 401
-        msg = 'Wrong email/password'
+        msg = 'User unauthorized'
     }
     else if(err.name === 'UserUnauthorized'){
         status = 401

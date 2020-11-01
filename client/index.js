@@ -11,6 +11,19 @@ $(document).ready(function(){
 })
 
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
+
 function login(e) {
 
     e.preventDefault()
@@ -35,11 +48,21 @@ function login(e) {
         //ngosongin isi form after login
         $('#email').val('')
         $('#password').val('')
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+        })
         
     })
     .fail(err => {
+        Swal.fire(
+          'Error!',
+          err.responseJSON.msg,
+          'ERROR'
+        )
         loginPage()
-    }) 
+    })
 }
 
 function onSignIn(googleUser) {
@@ -56,8 +79,17 @@ function onSignIn(googleUser) {
         let access_token = response.access_token
         localStorage.setItem('access_token', access_token)
         todoList()
+        Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+        })
     })
     .fail(err => {
+        Swal.fire(
+          'Error!',
+          err.responseJSON.msg,
+          'ERROR'
+        )
         loginPage()
     })
 }
@@ -94,9 +126,18 @@ function register(e){
         localStorage.setItem('access_token', access_token)
         localStorage.setItem('full_name', full_name)
         todoList()
+        Toast.fire({
+            icon: 'success',
+            title: 'Registered in successfully'
+        })
     })
     .fail(err => {
         signUp()
+        Swal.fire(
+            'Error!',
+            err.responseJSON.msg,
+            'ERROR'
+        )
     }) 
 
 }
@@ -121,7 +162,7 @@ function viewTodo() {
                 <div class="card-header text-dark font-weight-bolder" style="background-color: #ecebc9">
                     ${el.title}
                 </div>
-                <div class="card-body" style="background-color: #ceca96; opactiy: 0.5;">
+                <div class="card-body" style="background-color: whitesmoke; opactiy: 0.5;">
                     <p class="card-text text-dark">${el.description}<br>${el.due_date}</p>
                     <a href="#" class="btn btn-sm btn-light" onclick="edit(${el.id})" style="margin-right: 5px">Edit</a>     
                     <a href="#" class="btn btn-sm btn-success" onclick="editStatus(${el.id})" style="margin-right: 5px">${el.status}</a>  
@@ -135,7 +176,11 @@ function viewTodo() {
         });
     })
     .fail(err => {
-        console.log(err)
+        Swal.fire(
+            'Error!',
+            err.responseJSON.msg,
+            'ERROR'
+        )
     })
 }
 
@@ -158,7 +203,7 @@ function todoById() {
                 <div class="card-header text-dark font-weight-bolder" style="background-color: #ecebc9">
                     ${el.title}
                 </div>
-                <div class="card-body" style="background-color: #ceca96, opacity: 0.5">
+                <div class="card-body" style="background-color: whitesmoke, opacity: 0.5">
                     <p class="card-text text-dark">${el.description}<br>${el.due_date}</p>
                     <a href="#" class="btn btn-sm btn-light" onclick="edit(${el.id})" style="margin-right: 5px">Edit</a>     
                     <a href="#" class="btn btn-sm btn-success" onclick="editStatus(${el.id})" style="margin-right: 5px">${el.status}</a>  
@@ -169,7 +214,11 @@ function todoById() {
         });
     })
     .fail(err => {
-        console.log(err)
+        Swal.fire(
+            'Error!',
+            err.responseJSON.msg,
+            'ERROR'
+        )
     })
 }
 
@@ -199,9 +248,19 @@ function addTodo(e){
     })
     .done(response => {
         todoList()
+        Swal.fire(
+            'Added!',
+            'New ToDo has been added.',
+            'success'
+        )
     })
     .fail(err => {
         add()
+        Swal.fire(
+            'Error!',
+            err.responseJSON.msg,
+            'ERROR'
+        )
     })
 }
 
@@ -216,11 +275,20 @@ function editStatus(id){
         },
     })
     .done(response => {
-        console.log(response)
         todoList()
+        Swal.fire(
+            'Edited!',
+            'Your ToDo has been updated.',
+            'success'
+        )
     })
     .fail(err => {
         edit()
+        Swal.fire(
+            'Error!',
+            err.responseJSON.msg,
+            'ERROR'
+        )
     })
 }
 
@@ -249,12 +317,21 @@ function editTodo(e){
         }
     })
     .done(response => {
-        console.log(response)
         todoList()
+        Swal.fire(
+            'Edited!',
+            'Your ToDo has been updated.',
+            'success'
+        )
     })
     .fail(err => {
         console.log(err)
         edit()
+        Swal.fire(
+            'Error!',
+            err.responseJSON.msg,
+            'ERROR'
+        )
     })
 }
 
@@ -271,9 +348,19 @@ function deleteTodo(id){
     })
     .done(response => {
         todoList()
+        Swal.fire(
+            'Deleted!',
+            'Your ToDo has been deleted',
+            'Sucess'
+        )
     })
     .fail(err => {
         console.log(err)
+        Swal.fire(
+            'Error!',
+            err.responseJSON.msg,
+            'ERROR'
+        )
     })
 }
 
@@ -283,6 +370,10 @@ function logout (e) {
     e.preventDefault()
     localStorage.clear();
     loginPage()
+    Toast.fire({
+        icon: 'success',
+        title: 'Logout successful'
+    })
 
     // Google Signout di Taruh disini!
     var auth2 = gapi.auth2.getAuthInstance();
@@ -342,6 +433,11 @@ function movieRecommendation () {
     }) 
     .fail(err => {
         console.log(err)
+        Swal.fire(
+            'Error!',
+            err.responseJSON.msg,
+            'ERROR'
+        )
     })
 }
 

@@ -38,7 +38,7 @@ class Controller {
             })
             if(!loggedUser || !comparePassword(payload.password, loggedUser.password)){
                 let err = {
-                    name: 'Authentication failed'
+                    name: 'WrongEmailPassword'
                 }
                 throw next(err)
             }

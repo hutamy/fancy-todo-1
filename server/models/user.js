@@ -15,8 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       validate: {
-        // isEmail : 'Must be an email format', //hmm why
-        // unique: 'Email has aready taken', kenapa jadi gabisa jalan ya hmm
+        isEmail : {msg: 'Must be an email format'},
         notEmpty: 'Email in required'
       },
     },

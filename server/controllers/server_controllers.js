@@ -18,6 +18,9 @@ class Controller {
                 res.status(201).json(todo)
             }
             else{
+                let err = {
+                    name: 'SequelizeValidationError'
+                }
                 next(err)
             }
         }
@@ -71,13 +74,19 @@ class Controller {
                     id: id
                 }
             })
-            if(!updatedTodo){
+            if(!id){
                 let err = {
                     name: 'Not Found'
                 }
                 throw next(err)
             }
-            else {
+            else if(!updatedTodo){
+                let err = {
+                    name: 'SequelizeValidationError'
+                }
+                throw next (err)
+            }
+            else if(updatedTodo){
                 res.status(200).json(updatedTodo)
             }
         }
@@ -105,13 +114,19 @@ class Controller {
                     id: id
                 }
             })
-            if(!updatedTodo){
+            if(!id){
                 let err = {
                     name: 'Not Found'
                 }
                 throw next(err)
             }
-            else {
+            else if(!updatedTodo){
+                let err = {
+                    name: 'SequelizeValidationError'
+                }
+                throw next(err)
+            }
+            else if(updatedTodo){
                 console.log('berhasil')
                 res.status(200).json('Sucess update status')
             }
