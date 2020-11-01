@@ -15,16 +15,22 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       validate: {
-        isEmail : {msg : 'Must be an email'},
-      }
+        // isEmail : 'Must be an email format', //hmm why
+        // unique: 'Email has aready taken', kenapa jadi gabisa jalan ya hmm
+        notEmpty: 'Email in required'
+      },
     },
     password: {
       type: DataTypes.STRING,
       validate: {
-        len: [6]
+        len: [6],
+        notEmpty: 'Password is required'
       }
     },
-    full_name: DataTypes.STRING
+    full_name: {
+      type: DataTypes.STRING,
+      notEmpty: 'Full name is required'
+    }
   }, {
     hooks: {
       beforeCreate (User) {
