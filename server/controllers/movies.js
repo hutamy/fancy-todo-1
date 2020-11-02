@@ -4,7 +4,6 @@ class Movie {
 
     static popularMovie (req,res, next) {
         let listMovie
-        
         axios ({
             url: 'https://api.themoviedb.org/3/movie/popular',
             method: 'get',

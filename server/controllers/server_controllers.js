@@ -3,8 +3,7 @@ const dateValidation = require('../helpers/dateValidation')
 
 class Controller {
 
-    static async addTodo (req, res, next) {
-        
+    static async addTodo (req, res, next) { 
         try {
             const payload = {
                 title: req.body.title,
@@ -30,8 +29,7 @@ class Controller {
     }
 
 
-    static async viewById (req,res, next){
-
+    static async viewAllByUserId (req,res, next){
         try {
             const todos = await Todo.findAll({
                 where: {
@@ -46,21 +44,38 @@ class Controller {
     }
 
 
-    static async viewAll (req, res, next) {
-        
+    static async viewAllTodos (req, res, next) {
         try {
             const id = +req.params.id
-            const selectedTodo = await Todo.findAll({include: User})
-            res.status(200).json(selectedTodo)
+            const todos = await Todo.findAll({include: User})
+            res.status(200).json(todos)
         }
         catch(err) {
             next(err)
         }
     }
 
+    static async findTodoById (req,res, next) {
+        try {
+            const id = +req.params.id
+            const todo = await Todo.findByPk(id)
+            if(!todo){
+                let err = {
+                    name: 'Not Found'
+                }
+                throw next(err)
+            }
+            else{
+                res.status(200).json(todo)
+            }
+        } 
+        catch (err) {
+            next(err)
+        }
+    }
+
 
     static async replaceById(req,res, next) {
-
         try {
             const id = +req.params.id
             const payload = {
@@ -97,7 +112,6 @@ class Controller {
 
 
     static async updateTodo (req, res, next){
-        
         try {
             const id = +req.params.id
             let status 
@@ -138,7 +152,6 @@ class Controller {
     
 
     static async deleteTodo(req, res, next) {
-       
         try {
             const id = +req.params.id
             const deletedTodo = await Todo.destroy({

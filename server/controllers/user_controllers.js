@@ -59,7 +59,7 @@ class Controller {
     static async googleLogin (req, res, next) {
         console.log('click')
        
-        let {google_access_token} = req.body //ini ambil token yang digenerate google lewat ajax
+        let {google_access_token} = req.body 
         const client = new OAuth2Client(process.env.CLIENT_ID)
         async function verify(){
             const ticket = await client.verifyIdToken({
@@ -74,7 +74,6 @@ class Controller {
                 res.status(200).json({access_token, full_name:findUser.full_name})
             }
             else{
-                //asumsi login pakai id google tidak bisa pakai password emailnya
                 let newData = {
                     email:payload.email,
                     password:'udahadaaaaa',
@@ -82,7 +81,6 @@ class Controller {
                 }
                 let createUser = await User.create(newData)
                 let access_token =  signToken({id:createUser.id,email:createUser.email, full_name:createUser.full_name})
-                // console.log(acc)
                 res.status(200).json({access_token, full_name: createUser.full_name})
             }
         }

@@ -4,7 +4,6 @@ const { User } = require('../models/index')
 async function authentication (req, res, next){
     
     const { access_token } = req.headers
-    console.log('authentic')
 
     try{
         if(!access_token) {
@@ -25,6 +24,7 @@ async function authentication (req, res, next){
             }
             else {
                 req.loggedInUser = decoded
+                console.log('authentic')
                 next ()
             }
         }
