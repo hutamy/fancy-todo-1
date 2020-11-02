@@ -44,16 +44,14 @@ function login(e) {
         localStorage.setItem('access_token', access_token)
         localStorage.setItem('full_name', full_name)
         todoList()
-        
-        //ngosongin isi form after login
+    
         $('#email').val('')
         $('#password').val('')
 
         Toast.fire({
             icon: 'success',
             title: 'Signed in successfully'
-        })
-        
+        })  
     })
     .fail(err => {
         Swal.fire(
@@ -65,8 +63,8 @@ function login(e) {
     })
 }
 
-function onSignIn(googleUser) {
 
+function onSignIn(googleUser) {
     var google_access_token = googleUser.getAuthResponse().id_token;
     $.ajax({
         method: 'POST',
@@ -94,8 +92,8 @@ function onSignIn(googleUser) {
     })
 }
 
-function signOut() {
 
+function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
       console.log('User signed out.');
@@ -105,7 +103,6 @@ function signOut() {
 
 
 function register(e){
-
     e.preventDefault()
     const email = $('#email_register').val()
     const password = $('#password_register').val()
@@ -130,6 +127,9 @@ function register(e){
             icon: 'success',
             title: 'Registered in successfully'
         })
+        $('#email_register').val('')
+        $('#password_register').val('')
+        $('#full_name_register').val('')
     })
     .fail(err => {
         signUp()
@@ -144,7 +144,6 @@ function register(e){
 
 
 function viewTodo() {
-
     const access_token = localStorage.getItem('access_token')
     $.ajax({
         url: `${SERVER}/todos`,
@@ -164,7 +163,7 @@ function viewTodo() {
                 </div>
                 <div class="card-body" style="background-color: whitesmoke; opactiy: 0.5;">
                     <p class="card-text text-dark">${el.description}<br>${el.due_date}</p>
-                    <a href="#" class="btn btn-sm btn-light" onclick="edit(${el.id})" style="margin-right: 5px">Edit</a>     
+                    <a href="#" class="btn btn-sm btn-light" onclick="checkId(${el.id})" style="margin-right: 5px">Edit</a>     
                     <a href="#" class="btn btn-sm btn-success" onclick="editStatus(${el.id})" style="margin-right: 5px">${el.status}</a>  
                     <a href="#" class="btn btn-sm btn-primary" onclick="deleteTodo(${el.id})">Delete</a>
                 </div>
@@ -184,12 +183,12 @@ function viewTodo() {
     })
 }
 
-function todoById() {
 
+function todoById() {
     myTask()
     const access_token = localStorage.getItem('access_token')
     $.ajax({
-        url: `${SERVER}/todos/my-task`,
+        url: `${SERVER}/todos/user-task`,
         method: 'GET',
         headers: {
             access_token: access_token
@@ -224,9 +223,7 @@ function todoById() {
 
 
 function addTodo(e){
-
     const access_token = localStorage.getItem('access_token')
-
     e.preventDefault()
     const title = $('#add_title').val()
     const description = $('#add_description').val()
@@ -253,6 +250,10 @@ function addTodo(e){
             'New ToDo has been added.',
             'success'
         )
+        $('#add_title').val('')
+        $('#add_description').val('')
+        $('#add_status').val('')
+        $('#add_due_date').val('')
     })
     .fail(err => {
         add()
@@ -264,12 +265,12 @@ function addTodo(e){
     })
 }
 
-function editStatus(id){
 
+function editStatus(id){
     const access_token = localStorage.getItem('access_token')
     $.ajax({
         method: 'PATCH',
-        url: `${SERVER}/todos/update/${id}`,
+        url: `${SERVER}/todos/${id}`,
         headers: {
             access_token: access_token
         },
@@ -293,8 +294,43 @@ function editStatus(id){
 }
 
 
-function editTodo(e){
+function checkId(id) {
+    const access_token = localStorage.getItem('access_token')
+    $.ajax({
+        method: 'GET',
+        url: `${SERVER}/todos/${id}`,
+        headers: {
+            access_token: access_token
+        }
+    })
+    .done(response => {
+        if(!response){
+            Swal.fire(
+                'Error!',
+                'Authentication failed',
+                'ERROR'
+            )
+            viewTodo()
+        }
+        else{
+            $('#edit_title').val(response.title)
+            $('#edit_description').val(response.description)
+            $('#edit_status').val(response.status)
+            $('#edit_due_date').val(response.due_date)
+            edit(id)
+        }
+    })
+    .fail(err => {
+        Swal.fire(
+            'Error!',
+            err.responseJSON.msg,
+            'ERROR'
+        )
+    })
+}
 
+
+function editTodo(e){
     e.preventDefault()
     const id = edited_id
     const access_token = localStorage.getItem('access_token')
@@ -305,7 +341,7 @@ function editTodo(e){
    
     $.ajax({
         method: 'PUT',
-        url: `${SERVER}/todos/edit/${id}`,
+        url: `${SERVER}/todos/${id}`,
         headers: {
             access_token: access_token
         },
@@ -323,6 +359,10 @@ function editTodo(e){
             'Your ToDo has been updated.',
             'success'
         )
+        $('#edit_title').val('')
+        $('#edit_description').val('')
+        $('#edit_status').val('')
+        $('#edit_due_date').val('')
     })
     .fail(err => {
         console.log(err)
@@ -337,10 +377,9 @@ function editTodo(e){
 
 
 function deleteTodo(id){ 
-
     const access_token = localStorage.getItem('access_token')
     $.ajax({
-        url: `${SERVER}/todos/delete/${id}`,
+        url: `${SERVER}/todos/${id}`,
         method: 'DELETE',
         headers: {
             access_token: access_token
@@ -364,8 +403,8 @@ function deleteTodo(id){
     })
 }
 
-function logout (e) {
 
+function logout (e) {
     signOut()
     e.preventDefault()
     localStorage.clear();
@@ -374,16 +413,10 @@ function logout (e) {
         icon: 'success',
         title: 'Logout successful'
     })
-
-    // Google Signout di Taruh disini!
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log('User signed out.');
-    });
 }
 
+
 function movieRecommendation () {
-    
     const access_token = localStorage.getItem('access_token')
     popularMovie()
     $.ajax({
@@ -489,6 +522,7 @@ function signUp(){
     $('#my-task').hide()
 }
 
+
 function loginPage(){
     $('#content').hide()
     $('#content_navbar').hide()
@@ -500,6 +534,7 @@ function loginPage(){
     $('#my-task').hide()
 }
 
+
 function popularMovie(){
     $('#content').hide()
     $('#content_navbar').show()
@@ -510,6 +545,7 @@ function popularMovie(){
     $('#allMovies').show()
     $('#my-task').hide()
 }
+
 
 function myTask() {
     $('#content').hide()

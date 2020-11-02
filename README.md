@@ -54,13 +54,36 @@
         **Content:**  `{ error : "Internal Server Error" }`
     
 
-## **Show Todos by Id**
+## **Show Todos by UserId**
 
     Show todo by User id
 
 -   **URL**
     
-    /todos/my-task
+    /todos/user-task
+
+    
+-   **Method:**
+    
+    `GET`
+    
+-   **Success Response:**
+    
+    -   **Code:**  200   **Content:**   `[{title: "Groceries Shopping", description: "get some chicken", status: "incomplete", due_date: 2020-10-26}] (array of objects)`
+    
+-   **Error Response:**
+    
+    -   **Code:**  500  
+        **Content:**  `{ error : "Internal Server Error" }`
+
+
+## **Show Todos by TodoId**
+
+    Show todo by User id
+
+-   **URL**
+    
+    /todos/:id
 
     
 -   **Method:**
@@ -83,7 +106,7 @@
 
 -   **URL**
     
-    /todos/edit/:id
+    /todos/:id
 
 - **URL Params**
 
@@ -122,7 +145,7 @@
 
 -   **URL**
     
-    /todos/update/:id
+    /todos/:id
 
 - **URL Params**
 
@@ -157,7 +180,7 @@
 
 -   **URL**
     
-    /todos/delete/:id
+    /todos/:id
 
 - **URL Params**
 
