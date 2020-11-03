@@ -1,4 +1,4 @@
-const SERVER = 'http://localhost:3000'
+const SERVER = 'https://fancy-toodoo.herokuapp.com/'
 let edited_id 
 
 $(document).ready(function(){
