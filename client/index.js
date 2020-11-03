@@ -1,4 +1,4 @@
-const SERVER = 'https://fancy-toodoo.herokuapp.com/'
+const SERVER = 'https://fancy-toodoo.herokuapp.com'
 let edited_id 
 
 $(document).ready(function(){
