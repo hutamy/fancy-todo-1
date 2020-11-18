@@ -1,4 +1,5 @@
-const SERVER = 'https://fancy-toodoo.herokuapp.com'
+// const SERVER = 'https://fancy-toodoo.herokuapp.com'
+const SERVER = 'http://localhost:3000'
 let edited_id 
 
 $(document).ready(function(){
@@ -188,7 +189,7 @@ function todoById() {
     myTask()
     const access_token = localStorage.getItem('access_token')
     $.ajax({
-        url: `${SERVER}/todos/user-task`,
+        url: `${SERVER}/todos/my-task`,
         method: 'GET',
         headers: {
             access_token: access_token

@@ -60,7 +60,7 @@
 
 -   **URL**
     
-    /todos/user-task
+    /todos/my-task
 
     
 -   **Method:**

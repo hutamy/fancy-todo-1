@@ -6,7 +6,7 @@ const authorization = require('../middleware/authorization')
 router.use(authentication)
 router.post('/', controller.addTodo)
 router.get('/', controller.viewAllTodos)
-router.get('/user-task', controller.viewAllByUserId)
+router.get('/my-task', controller.viewAllByUserId)
 
 
 router.get('/:id', authorization ,controller.findTodoById)
